@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.x  # Adjust to your runtime
+    commands:
+      - echo Installing dependencies...
+      - pip install -r requirements.txt
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the project...
+      - python manage.py migrate  # If you're using Django
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Deploying to EC2...
+      - scp -i "C:\Users\SRIDEVI\Downloads\chennapragada.pem" -r * ec2-user@23.22.78.197:/home/ec2-user/Weather_Project
+artifacts:
+  files:
+    - '**/*'
